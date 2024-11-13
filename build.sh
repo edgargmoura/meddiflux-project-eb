@@ -5,6 +5,7 @@ docker build -t meddiflux-eb .
 docker tag meddiflux-eb:latest $ECR_REGISTRY/meddiflux-eb:$versao
 docker push $ECR_REGISTRY/meddiflux-eb:$versao
 ./gerar-compose.sh
-zip -r meddiflux-versao$versao.zip docker-compose.yml
+rm meddiflux-versao-*zip
+zip -r meddiflux-versao-$versao.zip docker-compose.yml
 git checkout docker-compose.yml
 rm .env
