@@ -20,7 +20,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 };
 
 Header.defaultProps = {
-  title: "BIA sem pipeline ainda 2024",
+  title: "BIA no EB com scripts sem pipeline ainda 2024",
 };
 
 export default Header;
