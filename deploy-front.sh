@@ -1,3 +1,4 @@
+./build.sh
 API_ENDPOINT=http://meddiflux-hom.us-east-1.elasticbeanstalk.com
 REACT_APP_API_URL=$API_ENDPOINT SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
 echo '>> Fazendo deploy dos assets'
