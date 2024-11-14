@@ -1,5 +1,6 @@
 services:
   server:
+    container_name: meddiflux
     image: 011528257712.dkr.ecr.us-east-1.amazonaws.com/meddiflux-eb:${TAG}
     ports:
       - 80:8080
