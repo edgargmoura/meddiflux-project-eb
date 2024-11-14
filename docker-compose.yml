@@ -1,10 +1,9 @@
 services:
   server:
-    build: .
+    env_file: .env
+    image: 011528257712.dkr.ecr.us-east-1.amazonaws.com/meddiflux-eb:ff980ec
     ports:
-      - 80:8080
-    environment:
-      DB_USER: postgres
-      DB_PWD: postgres
-      DB_HOST: database
-      DB_PORT: 5432
+      - mode: ingress
+        target: 8080
+        published: "80"
+        protocol: tcp
