@@ -20,7 +20,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 };
 
 Header.defaultProps = {
-  title: "Ambiente de Homologação da Meddiflux com CDN e RDS 2024",
+  title: "Ambiente de Produção da Meddiflux com CDN e RDS 2024",
 };
 
 export default Header;

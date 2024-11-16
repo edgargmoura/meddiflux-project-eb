@@ -4,6 +4,7 @@ aws ecr get-login-password --region us-east-1 --profile tf-bia-lab | docker logi
 docker build -t meddiflux-eb .
 docker tag meddiflux-eb:latest $ECR_REGISTRY/meddiflux-eb:$versao
 docker push $ECR_REGISTRY/meddiflux-eb:$versao
+rm .env 2> /dev/null
 ./gerar-compose.sh
 rm meddiflux-versao-*zip
 zip -r meddiflux-versao-$versao.zip docker-compose.yml
