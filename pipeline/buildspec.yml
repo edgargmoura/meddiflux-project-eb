@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Fazendo login no ECR...      
+      - echo Fazendo login no ECR...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 011528257712.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=011528257712.dkr.ecr.us-east-1.amazonaws.com/meddiflux
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
@@ -20,7 +20,6 @@ phases:
       - echo Fazendo push da imagem para o ECR...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Gerando artefato da imagem para o ECS
-      - printf '[{"name":"meddiflux","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - echo Gerando artefato da imagem para o EB
 artifacts:
-  files: imagedefinitions.json
+  files: docker-compose.yml
