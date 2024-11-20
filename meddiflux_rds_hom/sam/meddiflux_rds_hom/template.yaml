@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Controle de Instância RDS
+  Template para iniciar e desligar banco de dados RDS automaticamente
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  LigarDBCluster:
+    Type: AWS::Serverless::Function
+    Properties:      
+      Handler: src/handlers/RdsMeddiflux.StartDBCluster
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Events:
+        AgendamentoInicializacao:
+          Type: Schedule
+          Properties:
+            Schedule: cron(53 11 ? * MON-FRI *)
+      Policies:
+        - Statement:
+          - Sid: StartRDS
+            Effect: Allow
+            Action:
+              - rds:StartDBInstance
+            Resource: '*'
+
+  DesligarDBCluster:
+    Type: AWS::Serverless::Function
+    Properties:      
+      Handler: src/handlers/RdsMeddiflux.StopDBCluster
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Events:
+        AgendamentoDesligamento:
+          Type: Schedule
+          Properties:
+            Schedule: cron(00 21 ? * MON-FRI *)
+      Policies:
+        - Statement:
+          - Sid: StopRDS
+            Effect: Allow
+            Action:
+              - rds:StopDBInstance
+            Resource: '*'
