@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  porteiro
+
+  Sample SAM Template for porteiro
+  
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  LigarBastion:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:      
+      Handler: src/handlers/bastion-meddiflux.startEC2Instances
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Events:
+        CloudWatchEvent:
+          Type: Schedule # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Schedule: cron(00, 23 ?, * MON-FRI *)
+      Policies:
+        - Statement:
+          - Sid: StartEC2
+            Effect: Allow
+            Action:
+              - ec2:StartInstances
+            Resource: '*'
+  DesligarBastion:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:      
+      Handler: src/handlers/bastion-meddiflux.stopEC2Instances
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Events:
+        CloudWatchEvent:
+          Type: Schedule # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Schedule: cron(00, 02 ?, * MON-FRI *)
+      Policies:
+        - Statement:
+          - Sid: StopEC2
+            Effect: Allow
+            Action:
+              - ec2:StopInstances
+            Resource: '*'
