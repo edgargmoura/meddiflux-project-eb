@@ -1,0 +1,3 @@
+# aws ssm start-session --target i-02e6a67448192f45d --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters '{"host":["meddiflux-db-hom.cluster-c92gks262jgj.us-east-1.rds.amazonaws.com"],"portNumber":["5432"],"localPortNumber":["5455"]}' --profile tf-bia-lab
+
+aws ssm start-session --target i-01873eab23fee3937 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters '{"host":["bia-prd.cluster-c5mwk0yc8624.us-east-1.rds.amazonaws.com"],"portNumber":["5432"],"localPortNumber":["5433"]}' --profile cloudcore
