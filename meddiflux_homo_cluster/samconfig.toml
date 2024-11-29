@@ -4,7 +4,7 @@ version = 0.1
 
 [default]
 [default.global.parameters]
-stack_name = "bastion-meddiflux"
+stack_name = "meddiflux_homo_cluster"
 
 [default.build.parameters]
 cached = true
@@ -15,9 +15,10 @@ lint = true
 
 [default.deploy.parameters]
 capabilities = "CAPABILITY_IAM"
-confirm_changeset = true
+confirm_changeset = false
 resolve_s3 = true
-s3_prefix = "bastion-meddiflux"
+stack_name = "dbcluster-automate"
+s3_prefix = "dbcluster-automate"
 region = "us-east-1"
 profile = "bia-serverless"
 image_repositories = []

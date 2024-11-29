@@ -2,7 +2,7 @@ services:
   server:
     env_file: .env
     container_name: meddiflux
-    image: 011528257712.dkr.ecr.us-east-1.amazonaws.com/meddiflux-eb:latest
+    image: 011528257712.dkr.ecr.us-east-1.amazonaws.com/meddiflux-eb:dd94936
     ports:
       - mode: ingress
         target: 8080

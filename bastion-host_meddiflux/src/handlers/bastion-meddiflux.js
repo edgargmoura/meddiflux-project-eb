@@ -3,7 +3,7 @@ const AWS = require("aws-sdk");
 AWS.config.update({ region: "us-east-1" });
 const ec2 = new AWS.EC2({ apiVersion: "2016-11-15" });
 const params = {
-    InstanceIds: ["i-01873eab23fee3937"],
+    InstanceIds: ["i-02e6a67448192f45d"],
 };
 
 exports.startEC2Instances = () => {

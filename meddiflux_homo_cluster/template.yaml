@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  bastion-meddiflux
+  DBCluster
 
-  Sample SAM Template for bastion-meddiflux
+  Sample SAM Template for DBCluster
   
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -11,10 +11,10 @@ Globals:
     Timeout: 3
 
 Resources:
-  LigarBastion:
+  LigarDBCluster:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:      
-      Handler: src/handlers/bastion-meddiflux.startEC2Instances
+      Handler: src/handlers/dbcluster-automate.startDBCluster
       Runtime: nodejs16.x
       Architectures:
         - x86_64
@@ -22,18 +22,18 @@ Resources:
         CloudWatchEvent:
           Type: Schedule # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Schedule: cron(16, 16 ?, * MON-FRI *)
+            Schedule: cron(29, 16 ?, * MON-FRI *)
       Policies:
         - Statement:
-          - Sid: StartEC2
+          - Sid: IniciarRDS
             Effect: Allow
             Action:
-              - ec2:StartInstances
+              - rds:StartDBCluster
             Resource: '*'
-  DesligarBastion:
+  DesligarDBCluster:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:      
-      Handler: src/handlers/bastion-meddiflux.stopEC2Instances
+      Handler: src/handlers/dbcluster-automate.stopDBCluster
       Runtime: nodejs16.x
       Architectures:
         - x86_64
@@ -41,11 +41,11 @@ Resources:
         CloudWatchEvent:
           Type: Schedule # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Schedule: cron(19, 16 ?, * MON-FRI *)
+            Schedule: cron(38, 16 ?, * MON-FRI *)
       Policies:
         - Statement:
-          - Sid: StopEC2
+          - Sid: PararRDS
             Effect: Allow
             Action:
-              - ec2:StopInstances
+              - rds:StopDBCluster
             Resource: '*'
